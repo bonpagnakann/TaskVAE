@@ -1,0 +1,16 @@
+# Ignore files and directories
+node_modules/
+datasets/
+output_reports/
+saved*/
+.taskvae/
+*.log
+*.stderr
+*.stdout
+*.tmp
+datasets/By_Users/MotionSense
+datasets/By_Users/UCI
+experiment*.sh
+.DS_Store
+__pycache__/
+.env
