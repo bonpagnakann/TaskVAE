@@ -78,11 +78,6 @@ class Trainer():
                                         'macro': {j: [] for j in range(1, self.args.total_classes)}} for i in HOLDOUT_SIZES}
         for handler, holdout_size, seed_val in self.instantiate_trainers():
             self.initialize_and_train(seed_val, handler, holdout_size=holdout_size)
-            if seed_val == SEEDS[-1]:
-                assert len(self.each_task_times) == len(self.all_task_times) == len(self.each_exemp_task_times) == len(self.all_exemp_task_times), \
-                    "Time lengths do not match"
-                cost_analyzer = f"{self.args.dataset},{self.args.new_classes}, {self.args.person}, {self.args.method}_{self.args.exemplar},{self.args.vae_lat_sampling}, {self.args.latent_vec_filter},{self.args.number}, {self.holdout_size}, {sum(self.each_task_times) / len(self.each_task_times)},{sum(self.all_task_times) / len(self.all_task_times)},{sum(self.each_exemp_task_times) / len(self.each_exemp_task_times)},{sum(self.all_exemp_task_times) / len(self.all_exemp_task_times)}" 
-                write_to_report_and_print(self.outfile_t, cost_analyzer)
 
     def instantiate_trainers(self):
         """
@@ -135,7 +130,7 @@ class Trainer():
         Define the output file paths for logging
         """
         OUT_PATH = 'output_reports/'
-        self.outfile, self.outfile_t = get_output_file_paths(self.args, OUT_PATH, self.holdout_size)
+        self.outfile = get_output_file_paths(self.args, OUT_PATH, self.holdout_size)
 
     @staticmethod
     def seed_randomness(seed_value):
@@ -382,7 +377,7 @@ class Trainer():
 
             start_time_exemp2 = timer()
 
-            if self.args.exemplar =='vae':
+            if self.args.exemplar =='taskvae':
                 vae_trainX = np.concatenate((train_x, val_x), axis=0) 
                 vae_trainy = np.concatenate((train_y, val_y)) 
                 

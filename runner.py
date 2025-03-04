@@ -22,10 +22,9 @@ parser.add_argument('--method', default='ce', type=str,
                          "'kd_kldiv' for base distillaiton loss with kl divergence "
                          "'cn_lfc_mr' : cosine norm + less forget constraint + margin ranking loss,"
                          "'ce_ewc': EWC with memory replay,")
-parser.add_argument('--exemplar', default='random', type=str, help="exemplar selection strategy: 'random', 'icarl', 'fetril'"
-                                                                   "'kmeans', 'dpp', 'boundary', 'sensitivity' or 'fwsr'")
+parser.add_argument('--exemplar', default='random', type=str, help="exemplar selection strategy: 'random', 'icarl' or 'taskvae'")
 parser.add_argument('--vae_lat_sampling', default='none', type=str, help='Select the sampling strategy for latent vectors from VAE')
-parser.add_argument('--latent_vec_filter', default='none', type=str, help='Select the filter strategy for latent vectors from VAE')
+parser.add_argument('--latent_vec_filter', default='none', type=str, help="Select the filter strategy for latent vectors from VAE: 'probability', 'none'")
 parser.add_argument('--person', default=0, type=int, help='Select data of a person to train in CL.')
 parser.add_argument('--generated_size', default=1.0, type=float, help='Select the ratio of the average size for generating samples from VAE')
 parser.add_argument('--wt_init', default=False, type=bool,

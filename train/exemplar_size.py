@@ -43,22 +43,14 @@ def calculate_exemp_size(dataset, new_class, person):
 def get_output_file_paths(args, OUT_PATH, holdout_size):
     """
     Generates output file paths based on method and exemplar type.
-    
-    Returns:
-        outfile (str): Path to the main output file.
-        outfile_t (str): Path to the time log file.
     """
 
     # Define base folder structure
     base_path = f"{OUT_PATH}{args.dataset}/{args.base_classes}{args.new_classes}/Person_{args.person}"
 
     # Determine folder name based on method or exemplar type
-    if args.exemplar == 'vae':
+    if args.exemplar == 'taskvae':
         folder_name = f"{base_path}/VAE_{args.vae_lat_sampling}_{args.latent_vec_filter}/log"
-        filename_suffix = f"{args.person}_{args.method}_{args.exemplar}_{args.vae_lat_sampling}_{args.latent_vec_filter}_{holdout_size}"
-
-    elif args.exemplar == 'vae_ratio':
-        folder_name = f"{base_path}_{args.number}/log"
         filename_suffix = f"{args.person}_{args.method}_{args.exemplar}_{args.vae_lat_sampling}_{args.latent_vec_filter}_{holdout_size}"
 
     elif args.method == 'kd_kldiv':
@@ -73,26 +65,15 @@ def get_output_file_paths(args, OUT_PATH, holdout_size):
         folder_name = f"{base_path}/EWC_Replay_{args.number}/log"
         filename_suffix = f"{args.person}_{args.method}_{args.exemplar}_{holdout_size}"
 
-    elif args.exemplar == 'fetril':
-        folder_name = f"{base_path}/FeTrIL/log"
-        filename_suffix = f"{args.person}_{args.method}_{args.exemplar}_{holdout_size}"
-
-    elif args.exemplar == 'ddgr':
-        folder_name = f"{base_path}/DDGR/log"
-        filename_suffix = f"{args.person}_{args.method}_{args.exemplar}_{holdout_size}"
-
     else:
         folder_name = f"{base_path}/Random_{args.number}/log"
         filename_suffix = f"{args.person}_{args.method}_{args.exemplar}_{holdout_size}"
 
     # Create folders for log and statistics
     log_folder = os.path.join(folder_name, "log")
-    stat_folder = os.path.join(folder_name, "time_log")
     os.makedirs(log_folder, exist_ok=True)
-    os.makedirs(stat_folder, exist_ok=True)
 
     # Define output file paths
     outfile = f"{log_folder}/{filename_suffix}.txt"
-    outfile_t = f"{stat_folder}/t_{filename_suffix}.txt"
 
-    return outfile, outfile_t
+    return outfile

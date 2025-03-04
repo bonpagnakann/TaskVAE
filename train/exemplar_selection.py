@@ -372,7 +372,7 @@ class Exemplar:
    
         self.cur_cls += cls_num
 
-        if strategy == 'vae':
+        if strategy == 'taskvae':
             samples_per_class = self.sample_size
         else:
             samples_per_class = self.max_size / self.cur_cls
@@ -386,7 +386,7 @@ class Exemplar:
 
         train_y_counts = Counter(train_y)
 
-        if strategy != 'vae':
+        if strategy != 'taskvae':
             self.train_store_dict = self.get_holdout_size_by_labels(train_y_counts, train_store_num)
         train_dict, val_dict = self.get_dict_by_class(train_x, train_y), None
         self.size_by_class =  {key: len(value) for key, value in train_dict.items()}
@@ -399,7 +399,7 @@ class Exemplar:
         mapped_new_classes = [self.original_mapping[self.virtual_mapping[each]] for each in new_labels]
         mapped_old_classes = [self.original_mapping[self.virtual_mapping[each]] for each in self.train.keys()]
 
-        if strategy != 'vae':
+        if strategy != 'taskvae':
             if strategy != 'icarl':
                 exemplar_details = "\nNew classes: {}, Old classes: {}\nUpdated memory size for each old class: {} [Train size={}]" \
                                    "".format(
@@ -431,7 +431,7 @@ class Exemplar:
             self.icarl_update(model, train_dict, val_dict=val_dict)
         elif strategy == 'random':
             self.random_update(train_dict, task_num, val_dict=val_dict)
-        elif strategy == 'vae':
+        elif strategy == 'taskvae':
             self.vae_update(train_dict, task_num, strategy)
 
         if val is not None:
@@ -441,7 +441,7 @@ class Exemplar:
             for key, value in self.val.items():
                 assert len(self.val[key]) == self.val_store_dict[key], print(key, len(self.val[key]),
                                                                              self.val_store_dict[key])
-        if strategy != 'vae':
+        if strategy != 'taskvae':
             print('self.cur_cls', self.cur_cls, 'list(self.train.keys())', list(self.train.keys()))
             total_size = 0
             for key, value in self.train.items():
@@ -491,12 +491,12 @@ class Exemplar:
 
 
     def get_exemplar_train(self, train_y, task_num, strategy, vae_sample=1,val=True, train_x=None, model=None, all_train_class=None):
-        if strategy == 'vae':
+        if strategy == 'taskvae':
             print('vae is here')
 
             if task_num > 0:    
                 class_frequency = {label: train_y.count(label) for label in set(train_y)}
-                if strategy == 'vae':
+                if strategy == 'taskvae':
                     self.sample_size = int(sum(class_frequency.values()) / len(class_frequency))                 
                 
                 for task in range(0, task_num):
