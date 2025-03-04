@@ -31,10 +31,13 @@ The dataset can be downloaded from this Google Drive link: https://drive.google.
 ### 2.1 Important Parameters
 
 In the following commands of running experiment for each method, the necessary arguments are defined as follows:
-```--dataset```: The dataset can be selected from ['motion', 'realworld', 'hhar', 'pamap', 'uci']
-```--total_classes``` : 6 for MotionSense, HHAR and UCI dataset, 8 for RealWorld, and 10 for PAMAP2 Dataset.
-```--base_classes``` : The number of classes in the first task.
-```--new_classes``` : Order of number of classes from the second task. 
+- ```--dataset```: The dataset can be selected from ['motion', 'realworld', 'hhar', 'pamap', 'uci']
+
+- ```--total_classes``` : 6 for MotionSense, HHAR and UCI dataset, 8 for RealWorld, and 10 for PAMAP2 Dataset.
+
+- ```--base_classes``` : The number of classes in the first task.
+
+- ```--new_classes``` : Order of number of classes from the second task. 
 
 For example, ```--base_classes 5 --new_classes '32' ``` refers to the scenario where there are 5,3,2 classes in Task 1,2,3 respectively. 
 
