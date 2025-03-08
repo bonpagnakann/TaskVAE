@@ -463,10 +463,9 @@ class Exemplar:
         data_dict = {}
 
         while True:
-
+                                   
             gen_data, gen_label = generate_sample(vae_m, self.min_max_vectors[task_num], sample_size,
-                                                  self.device, sample_strategy=self.vae_lat_sampling, latent_vec_filter=self.latent_vec_filter, 
-                                                  mean=self.vae_mean[task_num], std=self.vae_std[task_num])
+                                                  self.device, latent_vec_filter=self.latent_vec_filter)
 
             unique_values = np.unique(gen_label)
             print("Generated class(es) from VAE:", unique_values)
