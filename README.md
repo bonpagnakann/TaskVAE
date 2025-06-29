@@ -72,7 +72,7 @@ Below is the sample commands to run TaskVAE experiments for both with and withou
   ```
   python runner.py --dataset 'motion' --total_classes 6 --new_classes '31' --base_classes 2 --epochs 20 --method 'ce' --exemplar 'vae' --vae_lat_sampling 'boundary_box' --person 0
   ```
-- TaskVAE (without filtering):
+- TaskVAE (with filtering):
   ```
   python runner.py --dataset 'motion' --total_classes 6 --new_classes '31' --base_classes 2 --epochs 20 --method 'ce' --exemplar 'vae' --vae_lat_sampling 'boundary_box' --latent_vec_filter 'probability' --person 0
   ```
