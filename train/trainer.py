@@ -358,6 +358,8 @@ class Trainer():
                 if early_stopping.should_stop:
                     print(f"Stopping early at epoch {epoch}")
                     break
+            
+            end_time_train = timer() - start_time_train
 
             test_stats = ""
             if any([x in self.args.method for x in ['ewc']]):
@@ -389,7 +391,6 @@ class Trainer():
             end_time_exemp2 = timer() - start_time_exemp2
             end_time_exemp = end_time_exemp1 + end_time_exemp2
 
-            end_time_train = timer() - start_time_train
             task_times.append(end_time_train)
 
             exemp_times.append(end_time_exemp)
